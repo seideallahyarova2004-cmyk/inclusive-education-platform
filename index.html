@@ -2,18 +2,601 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rəqəmsal Məktəb</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rəqəmsal Məktəb</title>
+
+<style>
+:root {
+  --hero:#920f8d;
+  --hero-light:#a747a3;
+  --purple:#5b38ff;
+  --deep-purple:#4b087d;
+  --pink:#f05bc5;
+  --lime:#b7f15c;
+  --ink:#171717;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--ink);
+  background:#fff;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+.hero {
+  min-height:658px;
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+  background:var(--hero);
+  border-radius:0 0 24px 24px;
+}
+
+.hero:before {
+  content:"";
+  position:absolute;
+  width:520px;
+  height:760px;
+  left:-290px;
+  top:-260px;
+  background:var(--hero-light);
+  border-radius:48% 52% 55% 45%;
+  transform:rotate(-24deg);
+}
+
+.hero:after {
+  content:"";
+  position:absolute;
+  width:440px;
+  height:620px;
+  right:-250px;
+  bottom:-320px;
+  background:var(--hero-light);
+  border-radius:50%;
+  transform:rotate(25deg);
+}
+
+.nav {
+  position:relative;
+  z-index:2;
+  max-width:1050px;
+  margin:auto;
+  padding:18px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  font-size:15px;
+  white-space:nowrap;
+}
+
+.brand-mark {
+  font-size:30px;
+  line-height:1;
+  color:#b6f15c;
+}
+
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:22px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.nav-links a:hover {
+  opacity:.8;
+}
+
+.login {
+  background:var(--lime);
+  color:#17200c;
+  padding:11px 22px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.hero-content {
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:14px 18px 22px;
+}
+
+h1 {
+  font-size:32px;
+  line-height:1.2;
+  margin:12px 0 25px;
+  font-weight:750;
+  letter-spacing:-.8px;
+}
+
+.subtitle {
+  font-size:11px;
+  margin:0 0 4px;
+}
+
+.people {
+  max-width:760px;
+  margin:4px auto 0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:8px;
+}
+
+.person {
+  width:185px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+}
+
+.person:nth-child(2),
+.person:nth-child(3) {
+  margin-top:53px;
+}
+
+.portrait {
+  width:100%;
+  height:290px;
+  overflow:hidden;
+  position:relative;
+  border-radius:100px 100px 72px 72px;
+  background:var(--purple);
+}
+
+.person:nth-child(2) .portrait {
+  background:var(--pink);
+}
+
+.person:nth-child(3) .portrait {
+  background:var(--deep-purple);
+}
+
+.person:nth-child(4) .portrait {
+  background:var(--lime);
+}
+
+.portrait img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+}
+
+.person:nth-child(2) .portrait img {
+  object-position:center 25%;
+}
+
+.person:nth-child(3) .portrait img {
+  object-position:center 20%;
+}
+
+.person:nth-child(4) .portrait img {
+  object-position:center 10%;
+}
+
+.person-button {
+  margin-top:12px;
+  min-width:100px;
+  padding:11px 20px;
+  border:1px solid #fff;
+  border-radius:30px;
+  color:#fff;
+  font-size:11px;
+  background:transparent;
+  cursor:pointer;
+}
+
+.person-button:hover {
+  background:#fff;
+  color:var(--hero);
+}
+
+.spark {
+  position:absolute;
+  z-index:2;
+  color:var(--lime);
+  font-size:32px;
+  left:8px;
+  top:6px;
+}
+
+.content {
+  max-width:760px;
+  margin:0 auto;
+  padding:48px 20px 20px;
+}
+
+.role-section {
+  padding:0 0 54px;
+  margin:0 0 12px;
+}
+
+.section-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:32px;
+}
+
+.section-head h2 {
+  font-size:22px;
+  margin:0;
+  font-weight:700;
+  letter-spacing:-.5px;
+}
+
+.continue {
+  background:#171717;
+  color:#fff;
+  border:0;
+  border-radius:28px;
+  padding:13px 23px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:1.2fr .85fr .68fr;
+  gap:14px;
+  align-items:stretch;
+}
+
+.info-card {
+  min-height:205px;
+  border-radius:22px;
+  padding:18px;
+  overflow:hidden;
+  position:relative;
+}
+
+.info-card h3 {
+  font-size:14px;
+  line-height:1.35;
+  margin:0 0 12px;
+}
+
+.info-card p {
+  font-size:10px;
+  line-height:1.55;
+  margin:0;
+}
+
+.card-purple {
+  background:var(--purple);
+  color:white;
+}
+
+.card-purple:after {
+  content:"✦";
+  position:absolute;
+  right:24px;
+  top:-26px;
+  font-size:105px;
+  color:#ffffff20;
+}
+
+.card-green {
+  background:var(--lime);
+  color:#17200c;
+}
+
+.card-photo {
+  padding:0;
+  background:#eee;
+  min-height:205px;
+}
+
+.card-photo img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  inset:0;
+}
+
+.role-section:nth-of-type(even) .card-purple {
+  background:var(--deep-purple);
+}
+
+.role-section:nth-of-type(even) .card-green {
+  background:#f05bc5;
+}
+
+.footer {
+  text-align:center;
+  color:#777;
+  font-size:11px;
+  padding:25px;
+}
+
+@media(max-width:760px) {
+  .hero {
+    min-height:auto;
+    padding-bottom:35px;
+  }
+
+  .nav {
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .nav-links {
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  h1 {
+    font-size:26px;
+  }
+
+  .people {
+    max-width:560px;
+    gap:7px;
+    flex-wrap:wrap;
+  }
+
+  .person {
+    width:22%;
+    min-width:115px;
+  }
+
+  .portrait {
+    height:210px;
+    border-radius:70px 70px 48px 48px;
+  }
+
+  .person:nth-child(2),
+  .person:nth-child(3) {
+    margin-top:32px;
+  }
+
+  .person-button {
+    min-width:85px;
+    padding:9px 12px;
+  }
+
+  .content {
+    padding-top:35px;
+  }
+
+  .cards {
+    grid-template-columns:1fr 1fr;
+  }
+
+  .card-photo {
+    grid-column:1/-1;
+    min-height:220px;
+  }
+}
+
+@media(max-width:440px) {
+  .person {
+    width:44%;
+    min-width:0;
+  }
+
+  .portrait {
+    height:230px;
+  }
+
+  .person:nth-child(2),
+  .person:nth-child(3) {
+    margin-top:0;
+  }
+
+  .section-head h2 {
+    font-size:18px;
+  }
+
+  .cards {
+    grid-template-columns:1fr;
+  }
+
+  .card-photo {
+    grid-column:auto;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <h1>Rəqəmsal Məktəb</h1>
-    <p>İnklüziv Təhsil Platformasına xoş gəlmisiniz!</p>
+<header class="hero" id="top">
 
-    <a href="inclusive.html">
-        İnklüziv Təhsil Platformasına keçid
-    </a>
+<nav class="nav">
+  <a class="brand" href="#top">
+    <span class="brand-mark">✦</span>
+    <span>rəqəmsal məktəb</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="#about">Layihə haqqında</a>
+    <a href="#videos">Tədris videoları</a>
+    <a href="#schools">Bakı şəhəri üzrə məktəblər</a>
+    <a href="#faq">FAQ</a>
+    <a href="#guide">İstifadəçi təlimatı</a>
+    <a class="login" href="#student">Giriş</a>
+  </div>
+</nav>
+
+<div class="hero-content">
+
+  <h1>Rəqəmsal məktəb platforması</h1>
+
+  <p class="subtitle">
+    Rəqəmsal mühitdə öyrənmə, tədris, ünsiyyət və əməkdaşlıq platformasıdır.
+  </p>
+
+  <div class="people">
+
+    <div class="person">
+      <span class="spark">✦</span>
+      <div class="portrait">
+        <img src="images/student-boy.png"
+             alt="Daun sindromlu oğlan şagird">
+      </div>
+      <a class="person-button" href="#student">Şagird</a>
+    </div>
+
+    <div class="person">
+      <div class="portrait">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=85"
+             alt="Valideyn">
+      </div>
+      <a class="person-button" href="#parent">Valideyn</a>
+    </div>
+
+    <div class="person">
+      <div class="portrait">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=500&q=85"
+             alt="Müəllim">
+      </div>
+      <a class="person-button" href="#teacher">Müəllim</a>
+    </div>
+
+    <div class="person">
+      <div class="portrait">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=85"
+             alt="Direktor">
+      </div>
+      <a class="person-button" href="#director">Direktor</a>
+    </div>
+
+  </div>
+</div>
+</header>
+
+<main class="content">
+
+<section class="role-section" id="student">
+  <div class="section-head">
+    <h2>Şagirdlər üçün giriş</h2>
+    <button class="continue">Davam et ➜</button>
+  </div>
+
+  <div class="cards">
+    <article class="info-card card-purple">
+      <h3>Məktəbdə keçirilən dərsləri onlayn möhkəmləşdir.</h3>
+      <p>Hazırlanmış tapşırıqları və test tapşırıqlarını yerinə yetirərək keçilmiş mövzuları möhkəmləndirə bilərsən.</p>
+    </article>
+
+    <article class="info-card card-green">
+      <h3>Müəllimlərdən soruş.</h3>
+      <p>Mövzu ilə bağlı müəllimlərə sual verə bilərsən.</p>
+    </article>
+
+    <article class="info-card card-photo">
+      <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=85" alt="Şagird">
+    </article>
+  </div>
+</section>
+
+<section class="role-section" id="parent">
+  <div class="section-head">
+    <h2>Valideynlər üçün giriş</h2>
+    <button class="continue">Davam et ➜</button>
+  </div>
+
+  <div class="cards">
+    <article class="info-card card-purple">
+      <h3>Övladının təhsilini yaxından izlə.</h3>
+      <p>Dərs cədvəli, davamiyyət və tədris prosesi haqqında məlumatları bir məkanda izləyə bilərsən.</p>
+    </article>
+
+    <article class="info-card card-green">
+      <h3>Məktəblə əlaqə saxla.</h3>
+      <p>Müəllimlər və məktəb ilə ünsiyyət imkanlarından istifadə et.</p>
+    </article>
+
+    <article class="info-card card-photo">
+      <img src="https://images.unsplash.com/photo-1491013516836-7db643ee125a?auto=format&fit=crop&w=700&q=85" alt="Valideyn və uşaq">
+    </article>
+  </div>
+</section>
+
+<section class="role-section" id="teacher">
+  <div class="section-head">
+    <h2>Müəllimlər üçün giriş</h2>
+    <button class="continue">Davam et ➜</button>
+  </div>
+
+  <div class="cards">
+    <article class="info-card card-purple">
+      <h3>Tədris prosesini idarə et.</h3>
+      <p>Dərs materiallarını paylaş, tapşırıqlar hazırla və şagirdlərin öyrənmə prosesini dəstəklə.</p>
+    </article>
+
+    <article class="info-card card-green">
+      <h3>Şagirdlərlə ünsiyyətdə ol.</h3>
+      <p>Sualları cavablandır və tədris resurslarını paylaş.</p>
+    </article>
+
+    <article class="info-card card-photo">
+      <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=700&q=85" alt="Müəllim">
+    </article>
+  </div>
+</section>
+
+<section class="role-section" id="director">
+  <div class="section-head">
+    <h2>Direktorlar üçün giriş</h2>
+    <button class="continue">Davam et ➜</button>
+  </div>
+
+  <div class="cards">
+    <article class="info-card card-purple">
+      <h3>Məktəbin fəaliyyətini izlə.</h3>
+      <p>Tədris prosesinə və məktəbin əsas göstəricilərinə dair məlumatları nəzərdən keçir.</p>
+    </article>
+
+    <article class="info-card card-green">
+      <h3>İdarəetməni asanlaşdır.</h3>
+      <p>Məktəbdaxili məlumat və hesabatları vahid platformada topla.</p>
+    </article>
+
+    <article class="info-card card-photo">
+      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=85" alt="Məktəb rəhbərliyi">
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  Rəqəmsal Məktəb
+</footer>
 
 </body>
 </html>
