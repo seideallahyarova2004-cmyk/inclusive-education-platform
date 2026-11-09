@@ -2,148 +2,87 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rəqəmsal Məktəb</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rəqəmsal Məktəb — Rəqəmsal məktəb platforması</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#164e63',
+          'primary-foreground': '#ffffff',
+          secondary: '#0d9488',
+          'secondary-foreground': '#ffffff',
+          accent: '#f59e0b',
+          'accent-foreground': '#ffffff',
+          pink: '#f43f5e',
+          card: '#ffffff',
+          muted: '#f1f5f9',
+          'muted-foreground': '#64748b',
+          foreground: '#0f172a'
+        }
+      }
+    }
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--hero:#4b087d;--hero-light:#7b1fa2;--purple:#5b38ff;--deep-purple:#4b087d;--pink:#f05bc5;--lime:#b7f15c;--ink:#171717;--card-blue:#2563eb}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}a{color:inherit;text-decoration:none}
-.hero{min-height:650px;position:relative;overflow:hidden;color:#fff;background:var(--hero);border-radius:0 0 32px 32px}
-.nav{position:relative;z-index:2;max-width:1150px;margin:auto;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;white-space:nowrap}.brand-mark{font-size:26px;line-height:1;color:var(--lime)}
-.nav-links{display:flex;align-items:center;gap:20px;font-size:11px;font-weight:600}.nav-links a:hover{opacity:.8}
-.login{background:var(--lime);color:#17200c;padding:10px 22px;border-radius:30px;font-size:11px;font-weight:700}
-.hero-content{position:relative;z-index:1;text-align:center;padding:12px 18px 36px}
-h1{font-size:36px;line-height:1.2;margin:10px 0 14px;font-weight:800;letter-spacing:-.8px}.subtitle{font-size:12px;margin:0 0 32px;opacity:.9}
-.people{max-width:820px;margin:0 auto;display:flex;align-items:flex-start;justify-content:center;gap:14px}
-.person{width:180px;display:flex;flex-direction:column;align-items:center;position:relative}
-.portrait{width:100%;height:270px;overflow:hidden;position:relative;border-radius:100px;background:var(--purple)}
-.person:nth-child(1) .portrait{background:var(--purple)}
-.person:nth-child(2) .portrait{background:var(--pink)}
-.person:nth-child(3) .portrait{background:var(--deep-purple)}
-.person:nth-child(4) .portrait{background:var(--lime)}
-.portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
-.person-button{margin-top:14px;min-width:105px;padding:10px 20px;border:1px solid rgba(255,255,255,0.8);border-radius:30px;color:#fff;font-size:12px;font-weight:600;background:transparent;cursor:pointer;text-align:center}
-.person-button:hover{background:#fff;color:var(--hero)}
-.spark{position:absolute;z-index:2;color:var(--lime);font-size:28px;left:6px;top:-4px}
-.content{max-width:960px;margin:0 auto;padding:48px 20px 40px}
-.role-section{padding:0 0 40px}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:28px}
-.section-head h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.5px}
-.continue{background:#111625;color:#fff;border:0;border-radius:28px;padding:12px 24px;font-size:12px;font-weight:700;cursor:pointer}
-.grid-cards{display:grid;grid-template-columns:1.25fr 0.85fr;gap:18px;align-items:stretch}
-.left-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.info-card{border-radius:20px;padding:20px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
-.info-card h3{font-size:14px;line-height:1.35;margin:0 0 8px;font-weight:700}
-.info-card p{font-size:11px;line-height:1.45;margin:0;opacity:.9}
-.card-blue{background:var(--card-blue);color:#fff}
-.card-lime{background:var(--lime);color:#17200c}
-.card-dark{background:var(--deep-purple);color:#fff;grid-column:1;grid-row:2}
-.card-pink{background:var(--pink);color:#fff;grid-column:2;grid-row:2;position:relative}
-.card-dark .darslik-badge{margin-top:14px;background:#fff;color:#2563eb;padding:6px 12px;border-radius:12px;font-weight:800;font-size:11px;width:fit-content;display:flex;align-items:center;gap:6px}
-.card-pink::after{content:"?";position:absolute;right:10px;bottom:-10px;font-size:85px;font-weight:900;color:rgba(255,255,255,0.22);чность;pointer-events:none}
-.card-photo{border-radius:20px;overflow:hidden;position:relative;min-height:340px}
-.card-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.avatar-group{display:flex;align-items:center;margin-top:14px}
-.avatar-group img{width:26px;height:26px;border-radius:50%;border:2px solid var(--lime);margin-left:-6px}
-.avatar-group img:first-child{margin-left:0}
-.footer{text-align:center;color:#888;font-size:11px;padding:28px}
-@media(max-width:850px){.grid-cards{grid-template-columns:1fr}.left-grid{grid-template-columns:1fr 1fr}.people{flex-wrap:wrap;gap:12px}.person{width:45%}}
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
 </style>
 </head>
-<body>
-<header class="hero" id="top">
-<nav class="nav">
-  <a class="brand" href="#top"><span class="brand-mark">✦</span><span>rəqəmsal məktəb</span></a>
-  <div class="nav-links">
-    <a href="#about">Layihə haqqında</a>
-    <a href="#services">Təhsil vidmatləri</a>
-    <a href="#learn">Bizi şablan öyrənmək</a>
-    <a href="#faq">FAQ</a>
-    <a href="#guide">İstifadəçi təlimatı</a>
-    <a class="login" href="#student">Daxil ol</a>
-  </div>
-</nav>
-<div class="hero-content">
-  <h1>Rəqəmsal məktəb platforması</h1>
-  <p class="subtitle">Rəqəmsal məktəbə öyrənmə, tədris, inkişaf və əməkdaşlıq platformasıdır.</p>
-  <div class="people">
-    <!-- 1. Şagird (Daun sindromlu oğlan şagird) -->
-    <div class="person">
-      <span class="spark">✦</span>
-      <div class="portrait">
-        <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=500&q=85" alt="Daun sindromlu şagird">
-      </div>
-      <a class="person-button" href="#student">Şagird</a>
-    </div>
-    <!-- 2. Valideyn -->
-    <div class="person">
-      <div class="portrait">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=85" alt="Valideyn">
-      </div>
-      <a class="person-button" href="#parent">Valideyn</a>
-    </div>
-    <!-- 3. Müəllim -->
-    <div class="person">
-      <div class="portrait">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=500&q=85" alt="Müəllim">
-      </div>
-      <a class="person-button" href="#teacher">Müəllim</a>
-    </div>
-    <!-- 4. Direktor -->
-    <div class="person">
-      <div class="portrait">
-        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=85" alt="Direktor">
-      </div>
-      <a class="person-button" href="#director">Direktor</a>
-    </div>
-  </div>
-</div>
-</header>
+<body class="bg-background text-foreground antialiased">
 
-<main class="content">
-  <section class="role-section" id="student">
-    <div class="section-head">
-      <h2>Şagirdlər üçün giriş</h2>
-      <button class="continue">Davam et ➔</button>
-    </div>
-    <div class="grid-cards">
-      <div class="left-grid">
-        <article class="info-card card-blue">
-          <h3>Məktəbdə keçirilən dərsləri onlayn mükəmməlləşdir.</h3>
-          <p>Müxtəlif fərdi öyrənmə imkanlarını kəşf edin və onlayn dərslərdən yararlanın.</p>
-        </article>
-        <article class="info-card card-lime">
-          <h3>Müəllimlərdən soruş.</h3>
-          <p>Müəlliminizlə asanlıqla əlaqə saxlayın.</p>
-          <div class="avatar-group">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=100&q=80" alt="Avatar 1">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80" alt="Avatar 2">
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" alt="Avatar 3">
+  <!-- ================= 1. ANA SƏHİFƏ (LANDING PAGE) ================= -->
+  <main id="landing-page" class="font-sans">
+    <section class="relative overflow-hidden bg-primary pb-20 text-primary-foreground">
+      <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-secondary opacity-60 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-pink opacity-30 blur-3xl"></div>
+      
+      <!-- Header / Naviqasiya -->
+      <header class="mx-auto max-w-7xl px-4 md:px-8 relative flex items-center justify-between py-6">
+        <a href="#" class="flex items-center gap-2 text-xl font-extrabold text-primary-foreground">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-accent text-accent-foreground">R</span>
+          Rəqəmsal Məktəb
+        </a>
+        <nav class="hidden items-center gap-6 text-sm font-semibold lg:flex">
+          <a href="#about" class="hover:text-accent">Layihə haqqında</a>
+          <a href="#teaching-videos" class="hover:text-accent">Tədris videoları</a>
+          <a href="#mapsBanner" class="hover:text-accent">Bakı şəhəri üzrə məktəblər</a>
+          <a href="#faq" class="hover:text-accent">FAQ</a>
+          <a href="#" class="hover:text-accent">İstifadəçi təlimatı</a>
+          <button onclick="openPanel('student-panel')" class="rounded-full bg-accent px-6 py-2.5 font-bold text-accent-foreground">Giriş</button>
+        </nav>
+      </header>
+
+      <!-- Hero & Rollar -->
+      <div class="mx-auto max-w-7xl px-4 md:px-8 relative pt-10 text-center">
+        <h1 class="text-4xl font-extrabold md:text-6xl">Rəqəmsal məktəb platforması</h1>
+        <p class="mx-auto mt-4 max-w-xl text-lg opacity-80">Rəqəmsal mühitdə öyrənmə, tədris, ünsiyyət və əməkdaşlıq platformasıdır.</p>
+        
+        <!-- Rolların Kartları (5 Role: Şagird, Valideyn, Müəllim, Mütəxəssis, Direktor) -->
+        <div class="mt-14 grid grid-cols-2 gap-4 md:grid-cols-5">
+          <!-- Şagird -->
+          <div onclick="openPanel('student-panel')" class="cursor-pointer relative flex flex-col items-center transition transform hover:-translate-y-1">
+            <div class="relative h-56 w-full overflow-hidden rounded-[2rem] md:h-72 bg-accent flex items-end justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-36 w-36 text-white mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            </div>
+            <span class="-mt-5 relative rounded-full bg-card px-5 py-2 text-sm font-bold text-foreground shadow-lg">Şagird</span>
           </div>
-        </article>
-        <article class="info-card card-dark">
-          <h3>Video dərslər və elektron dərsliklər.</h3>
-          <p>Mövzuları video izahla daha yaxşı anlayın.</p>
-          <div class="darslik-badge">▶ DƏRSLİK</div>
-        </article>
-        <article class="info-card card-pink">
-          <h3>Özünü qiymətləndirmə.</h3>
-          <p>Dərs zamanı əldə etdiyiniz bilikləri yoxlayın.</p>
-        </article>
-      </div>
-      <div class="card-photo">
-        <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=85" alt="Şagird">
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">Rəqəmsal Məktəb</footer>
-
-<script>
-document.querySelectorAll('.continue').forEach(b => b.addEventListener('click', () => {
-  document.getElementById('top').scrollIntoView({behavior: 'smooth'});
-}));
-</script>
-</body>
-</html>
+          <!-- Valideyn -->
+          <div class="relative flex flex-col items-center md:mt-8">
+            <div class="relative h-56 w-full overflow-hidden rounded-[2rem] md:h-72 bg-pink flex items-end justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-36 w-36 text-white mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <span class="-mt-5 relative rounded-full bg-card px-5 py-2 text-sm font-bold text-foreground shadow-lg">Valideyn</span>
+          </div>
+          <!-- Müəllim -->
+          <div class="relative flex flex-col items-center md:mt-8">
+            <div class="relative h-56 w-full overflow-hidden rounded-[2rem] md:h-72 bg-secondary flex items-end justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-36 w-36 text-white mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <span class="-mt-5 relative rounded-full bg-card px-5 py-2 text-sm font-bold text-foreground shadow-lg">Müəllim</span>
+          </div>
+          <!-- Mütəxəssis (Əlavə olunmuş yeni rol) -->
+          <div onclick="openPanel('specialist-panel')" class="cursor-pointer relative flex flex-col items-center md:mt-8 transition transform hover:-translate-y-1">
+            <div
