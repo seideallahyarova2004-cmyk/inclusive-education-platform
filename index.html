@@ -1,602 +1,645 @@
-
 <!DOCTYPE html>
 <html lang="az">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rəqəmsal Məktəb</title>
-
+<title>Rəqəmsal Məktəb — Rəqəmsal mühitdə öyrənmə, tədris, ünsiyyət və əməkdaşlıq platforması</title>
 <style>
-:root {
-  --hero:#920f8d;
-  --hero-light:#a747a3;
-  --purple:#5b38ff;
-  --deep-purple:#4b087d;
-  --pink:#f05bc5;
-  --lime:#b7f15c;
-  --ink:#171717;
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#0e63e6;--blue-dark:#0a4bb5;--blue-deep:#08306b;--blue-light:#eaf2ff;
+  --accent:#ffb703;--accent-dark:#e09e00;--green:#12b76a;--red:#ef4444;
+  --ink:#101828;--muted:#5b6b83;--line:#e3e9f2;--bg:#f7faff;
+  --shadow:0 10px 30px rgba(14,99,230,.08);--radius:16px;
 }
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.section{padding:84px 0}
+.section-head{text-align:center;max-width:720px;margin:0 auto 48px}
+.section-head .eyebrow{display:inline-block;background:var(--blue-light);color:var(--blue);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:14px}
+.section-head h2{font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.25;margin-bottom:12px}
+.section-head p{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border-radius:12px;padding:13px 26px;border:2px solid transparent;cursor:pointer;transition:.25s;font-size:.95rem}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 10px 22px rgba(14,99,230,.35)}
+.btn-accent{background:var(--accent);color:#3b2a00}
+.btn-accent:hover{background:var(--accent-dark);color:#fff}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:#fff}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-sm{padding:9px 18px;font-size:.85rem;border-radius:10px}
 
-* {
-  box-sizing:border-box;
+/* TOPBAR */
+.topbar{background:var(--blue-deep);color:#dce8ff;font-size:.82rem}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;min-height:38px;gap:12px;flex-wrap:wrap}
+.topbar .tb-left{display:flex;gap:18px;flex-wrap:wrap}
+.topbar .tb-item{display:inline-flex;align-items:center;gap:6px}
+.topbar a:hover{color:var(--accent)}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--line)}
+.header .container{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:74px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--blue),#4d8dff);display:grid;place-items:center}
+.brand-mark svg{width:28px;height:28px}
+.brand-name{font-size:1.12rem;font-weight:800;color:var(--blue-deep);line-height:1.2}
+.brand-sub{font-size:.72rem;color:var(--muted)}
+.nav{display:flex;align-items:center;gap:26px}
+.nav a{font-weight:600;font-size:.93rem;color:#33415c;padding:6px 0;position:relative}
+.nav a:hover,.nav a.active{color:var(--blue)}
+.nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:3px;background:var(--accent)}
+.header-cta{display:flex;align-items:center;gap:10px}
+.burger{display:none;background:none;border:0;width:44px;height:44px;border-radius:10px;cursor:pointer}
+.burger span{display:block;height:3px;border-radius:3px;background:var(--blue-deep);margin:5px 8px;transition:.3s}
+.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--line);padding:10px 20px 18px}
+.mobile-menu a{display:block;padding:11px 6px;font-weight:600;color:#33415c;border-bottom:1px dashed var(--line)}
+body.menu-open .mobile-menu{display:block}
+body.menu-open .burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+body.menu-open .burger span:nth-child(2){opacity:0}
+body.menu-open .burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,var(--bg) 0%,#fff 100%);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(14,99,230,.10),transparent 65%);top:-180px;right:-140px}
+.hero::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,183,3,.14),transparent 65%);bottom:-160px;left:-120px}
+.hero .container{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-top:64px;padding-bottom:64px;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);color:var(--blue);font-weight:700;font-size:.82rem;padding:8px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.18;color:var(--blue-deep);margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--blue);position:relative}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:10px;background:rgba(255,183,3,.45);z-index:-1;border-radius:6px}
+.hero p.lead{color:var(--muted);font-size:1.06rem;max-width:540px;margin-bottom:26px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.hero-points{display:flex;gap:22px;flex-wrap:wrap;color:var(--muted);font-size:.9rem;font-weight:600}
+.hero-points li{display:inline-flex;align-items:center;gap:8px}
+.hero-points .check{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:.75rem;font-weight:900}
+
+.hero-visual{position:relative}
+.hero-card{background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(14,99,230,.18);padding:24px;position:relative}
+.hero-photo{border-radius:18px;overflow:hidden;aspect-ratio:4/3;background:linear-gradient(135deg,#dbeafe,#93c5fd)}
+.hero-photo svg{width:100%;height:100%}
+.hero-caption{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.hero-caption strong{color:var(--blue-deep);font-size:.95rem}
+.hero-caption span{color:var(--muted);font-size:.82rem}
+.floating{position:absolute;background:#fff;border-radius:14px;box-shadow:0 14px 36px rgba(14,99,230,.18);padding:12px 16px;display:flex;align-items:center;gap:10px}
+.float-1{top:-14px;left:-18px;animation:float 4s ease-in-out infinite}
+.float-2{bottom:40px;right:-22px;animation:float 4s ease-in-out infinite .8s}
+.float-3{top:40%;right:-30px;animation:float 4s ease-in-out infinite 1.6s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.float-ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:900}
+.f-blue{background:var(--blue)}.f-green{background:var(--green)}.f-amber{background:var(--accent);color:#3b2a00}
+.float-text strong{display:block;font-size:.85rem;color:var(--ink)}
+.float-text span{font-size:.75rem;color:var(--muted)}
+
+/* 4 LOQİN KARTI */
+.logins{background:#fff;padding:64px 0;border-bottom:1px solid var(--line)}
+.logins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.login-card{background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);border:1px solid var(--line);border-radius:var(--radius);padding:28px 22px;text-align:center;transition:.3s;position:relative;overflow:hidden}
+.login-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--blue)}
+.login-card.student::before{background:#3b82f6}
+.login-card.parent::before{background:var(--accent)}
+.login-card.teacher::before{background:var(--green)}
+.login-card.school::before{background:#8b5cf6}
+.login-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--blue)}
+.login-icon{width:62px;height:62px;border-radius:16px;margin:0 auto 16px;display:grid;place-items:center;color:#fff}
+.student .login-icon{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+.parent .login-icon{background:linear-gradient(135deg,var(--accent),var(--accent-dark))}
+.teacher .login-icon{background:linear-gradient(135deg,var(--green),#047857)}
+.school .login-icon{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+.login-icon svg{width:32px;height:32px}
+.login-card h3{font-size:1.05rem;margin-bottom:6px}
+.login-card p{color:var(--muted);font-size:.85rem;margin-bottom:16px;min-height:42px}
+.login-card .btn{width:100%;justify-content:center}
+
+/* XÜSUSİYYƏTLƏR */
+.features{background:var(--bg)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:.3s}
+.feat:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.feat-ico{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;color:#fff;font-weight:900}
+.fi-1{background:var(--blue)}.fi-2{background:var(--green)}.fi-3{background:var(--accent);color:#3b2a00}
+.fi-4{background:#ef4444}.fi-5{background:#8b5cf6}.fi-6{background:#06b6d4}
+.feat h3{font-size:1.1rem;margin-bottom:8px}
+.feat p{color:var(--muted);font-size:.9rem}
+
+/* STAT */
+.stat{background:var(--blue-deep);color:#fff}
+.stat .section-head h2,.stat .section-head p{color:#fff}
+.stat .section-head .eyebrow{background:rgba(255,255,255,.12);color:#fff}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+.stat-n{font-size:2.6rem;font-weight:800;color:var(--accent);line-height:1}
+.stat-l{color:#cbd5f5;margin-top:8px;font-size:.95rem}
+
+/* XƏBƏRLƏR */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.news-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.3s;display:flex;flex-direction:column}
+.news-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.news-img{height:180px;background:linear-gradient(135deg,var(--blue-light),#cfe0ff);display:grid;place-items:center;color:var(--blue);font-size:3rem;position:relative}
+.news-img.alt{background:linear-gradient(135deg,#fef3c7,#fde68a);color:var(--accent-dark)}
+.news-img.alt2{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:var(--green)}
+.news-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.news-meta{display:flex;gap:12px;font-size:.78rem;color:var(--muted);margin-bottom:10px}
+.news-tag{background:var(--blue-light);color:var(--blue);padding:2px 10px;border-radius:999px;font-weight:700}
+.news-body h3{font-size:1.05rem;margin-bottom:8px;line-height:1.4}
+.news-body p{color:var(--muted);font-size:.88rem;margin-bottom:14px;flex:1}
+.news-more{color:var(--blue);font-weight:700;font-size:.85rem}
+.news-more:hover{color:var(--blue-dark)}
+
+/* SORĞU */
+.survey{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);color:#fff;text-align:center;position:relative;overflow:hidden}
+.survey::before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,183,3,.2),transparent 65%);top:-200px;right:-150px}
+.survey .container{position:relative;z-index:1}
+.survey h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:14px}
+.survey p{max-width:620px;margin:0 auto 26px;color:#dce8ff}
+
+/* FOOTER */
+footer{background:var(--blue-deep);color:#cbd5f5;padding:60px 0 20px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.foot-col h4{color:#fff;margin-bottom:18px;font-size:1rem}
+.foot-col p,.foot-col li{font-size:.9rem;margin-bottom:10px}
+.foot-col a:hover{color:var(--accent)}
+.foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.foot-brand .brand-mark{background:linear-gradient(135deg,var(--accent),#ffcd5c)}
+.foot-brand strong{color:#fff;font-size:1.1rem}
+.foot-social{display:flex;gap:10px;margin-top:16px}
+.foot-social a{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;transition:.3s}
+.foot-social a:hover{background:var(--accent);color:#3b2a00}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;font-size:.85rem;color:#8ea0c0}
+
+/* RESPONSIVE */
+@media(max-width:992px){
+  .nav,.header-cta .btn{display:none}
+  .burger{display:block}
+  .hero .container{grid-template-columns:1fr;text-align:center;gap:40px}
+  .hero p.lead,.hero-actions{margin-left:auto;margin-right:auto;justify-content:center}
+  .hero-points{justify-content:center}
+  .logins-grid,.features-grid,.stat-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
 }
-
-html {
-  scroll-behavior:smooth;
-}
-
-body {
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--ink);
-  background:#fff;
-}
-
-a {
-  color:inherit;
-  text-decoration:none;
-}
-
-.hero {
-  min-height:658px;
-  position:relative;
-  overflow:hidden;
-  color:#fff;
-  background:var(--hero);
-  border-radius:0 0 24px 24px;
-}
-
-.hero:before {
-  content:"";
-  position:absolute;
-  width:520px;
-  height:760px;
-  left:-290px;
-  top:-260px;
-  background:var(--hero-light);
-  border-radius:48% 52% 55% 45%;
-  transform:rotate(-24deg);
-}
-
-.hero:after {
-  content:"";
-  position:absolute;
-  width:440px;
-  height:620px;
-  right:-250px;
-  bottom:-320px;
-  background:var(--hero-light);
-  border-radius:50%;
-  transform:rotate(25deg);
-}
-
-.nav {
-  position:relative;
-  z-index:2;
-  max-width:1050px;
-  margin:auto;
-  padding:18px 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.brand {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-weight:700;
-  font-size:15px;
-  white-space:nowrap;
-}
-
-.brand-mark {
-  font-size:30px;
-  line-height:1;
-  color:#b6f15c;
-}
-
-.nav-links {
-  display:flex;
-  align-items:center;
-  gap:22px;
-  font-size:10px;
-  font-weight:700;
-}
-
-.nav-links a:hover {
-  opacity:.8;
-}
-
-.login {
-  background:var(--lime);
-  color:#17200c;
-  padding:11px 22px;
-  border-radius:30px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.hero-content {
-  position:relative;
-  z-index:1;
-  text-align:center;
-  padding:14px 18px 22px;
-}
-
-h1 {
-  font-size:32px;
-  line-height:1.2;
-  margin:12px 0 25px;
-  font-weight:750;
-  letter-spacing:-.8px;
-}
-
-.subtitle {
-  font-size:11px;
-  margin:0 0 4px;
-}
-
-.people {
-  max-width:760px;
-  margin:4px auto 0;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  gap:8px;
-}
-
-.person {
-  width:185px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  position:relative;
-}
-
-.person:nth-child(2),
-.person:nth-child(3) {
-  margin-top:53px;
-}
-
-.portrait {
-  width:100%;
-  height:290px;
-  overflow:hidden;
-  position:relative;
-  border-radius:100px 100px 72px 72px;
-  background:var(--purple);
-}
-
-.person:nth-child(2) .portrait {
-  background:var(--pink);
-}
-
-.person:nth-child(3) .portrait {
-  background:var(--deep-purple);
-}
-
-.person:nth-child(4) .portrait {
-  background:var(--lime);
-}
-
-.portrait img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center top;
-  display:block;
-}
-
-.person:nth-child(2) .portrait img {
-  object-position:center 25%;
-}
-
-.person:nth-child(3) .portrait img {
-  object-position:center 20%;
-}
-
-.person:nth-child(4) .portrait img {
-  object-position:center 10%;
-}
-
-.person-button {
-  margin-top:12px;
-  min-width:100px;
-  padding:11px 20px;
-  border:1px solid #fff;
-  border-radius:30px;
-  color:#fff;
-  font-size:11px;
-  background:transparent;
-  cursor:pointer;
-}
-
-.person-button:hover {
-  background:#fff;
-  color:var(--hero);
-}
-
-.spark {
-  position:absolute;
-  z-index:2;
-  color:var(--lime);
-  font-size:32px;
-  left:8px;
-  top:6px;
-}
-
-.content {
-  max-width:760px;
-  margin:0 auto;
-  padding:48px 20px 20px;
-}
-
-.role-section {
-  padding:0 0 54px;
-  margin:0 0 12px;
-}
-
-.section-head {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:32px;
-}
-
-.section-head h2 {
-  font-size:22px;
-  margin:0;
-  font-weight:700;
-  letter-spacing:-.5px;
-}
-
-.continue {
-  background:#171717;
-  color:#fff;
-  border:0;
-  border-radius:28px;
-  padding:13px 23px;
-  font-size:11px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.cards {
-  display:grid;
-  grid-template-columns:1.2fr .85fr .68fr;
-  gap:14px;
-  align-items:stretch;
-}
-
-.info-card {
-  min-height:205px;
-  border-radius:22px;
-  padding:18px;
-  overflow:hidden;
-  position:relative;
-}
-
-.info-card h3 {
-  font-size:14px;
-  line-height:1.35;
-  margin:0 0 12px;
-}
-
-.info-card p {
-  font-size:10px;
-  line-height:1.55;
-  margin:0;
-}
-
-.card-purple {
-  background:var(--purple);
-  color:white;
-}
-
-.card-purple:after {
-  content:"✦";
-  position:absolute;
-  right:24px;
-  top:-26px;
-  font-size:105px;
-  color:#ffffff20;
-}
-
-.card-green {
-  background:var(--lime);
-  color:#17200c;
-}
-
-.card-photo {
-  padding:0;
-  background:#eee;
-  min-height:205px;
-}
-
-.card-photo img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  position:absolute;
-  inset:0;
-}
-
-.role-section:nth-of-type(even) .card-purple {
-  background:var(--deep-purple);
-}
-
-.role-section:nth-of-type(even) .card-green {
-  background:#f05bc5;
-}
-
-.footer {
-  text-align:center;
-  color:#777;
-  font-size:11px;
-  padding:25px;
-}
-
-@media(max-width:760px) {
-  .hero {
-    min-height:auto;
-    padding-bottom:35px;
-  }
-
-  .nav {
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-
-  .nav-links {
-    width:100%;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:12px;
-  }
-
-  h1 {
-    font-size:26px;
-  }
-
-  .people {
-    max-width:560px;
-    gap:7px;
-    flex-wrap:wrap;
-  }
-
-  .person {
-    width:22%;
-    min-width:115px;
-  }
-
-  .portrait {
-    height:210px;
-    border-radius:70px 70px 48px 48px;
-  }
-
-  .person:nth-child(2),
-  .person:nth-child(3) {
-    margin-top:32px;
-  }
-
-  .person-button {
-    min-width:85px;
-    padding:9px 12px;
-  }
-
-  .content {
-    padding-top:35px;
-  }
-
-  .cards {
-    grid-template-columns:1fr 1fr;
-  }
-
-  .card-photo {
-    grid-column:1/-1;
-    min-height:220px;
-  }
-}
-
-@media(max-width:440px) {
-  .person {
-    width:44%;
-    min-width:0;
-  }
-
-  .portrait {
-    height:230px;
-  }
-
-  .person:nth-child(2),
-  .person:nth-child(3) {
-    margin-top:0;
-  }
-
-  .section-head h2 {
-    font-size:18px;
-  }
-
-  .cards {
-    grid-template-columns:1fr;
-  }
-
-  .card-photo {
-    grid-column:auto;
-  }
+@media(max-width:600px){
+  .logins-grid,.features-grid,.stat-grid,.news-grid,.foot-grid{grid-template-columns:1fr}
+  .section{padding:60px 0}
+  .topbar .tb-item:nth-child(2){display:none}
 }
 </style>
 </head>
-
 <body>
 
-<header class="hero" id="top">
-
-<nav class="nav">
-  <a class="brand" href="#top">
-    <span class="brand-mark">✦</span>
-    <span>rəqəmsal məktəb</span>
-  </a>
-
-  <div class="nav-links">
-    <a href="#about">Layihə haqqında</a>
-    <a href="#videos">Tədris videoları</a>
-    <a href="#schools">Bakı şəhəri üzrə məktəblər</a>
-    <a href="#faq">FAQ</a>
-    <a href="#guide">İstifadəçi təlimatı</a>
-    <a class="login" href="#student">Giriş</a>
-  </div>
-</nav>
-
-<div class="hero-content">
-
-  <h1>Rəqəmsal məktəb platforması</h1>
-
-  <p class="subtitle">
-    Rəqəmsal mühitdə öyrənmə, tədris, ünsiyyət və əməkdaşlıq platformasıdır.
-  </p>
-
-  <div class="people">
-
-    <div class="person">
-      <span class="spark">✦</span>
-      <div class="portrait">
-        <img src="images/student-boy.png"
-             alt="Daun sindromlu oğlan şagird">
-      </div>
-      <a class="person-button" href="#student">Şagird</a>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="tb-left">
+      <span class="tb-item">📞 +994 12 146 (demo)</span>
+      <span class="tb-item">📧 info@demo.az</span>
+      <span class="tb-item">🕐 B.E – Cümə 09:00–18:00</span>
     </div>
-
-    <div class="person">
-      <div class="portrait">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=85"
-             alt="Valideyn">
-      </div>
-      <a class="person-button" href="#parent">Valideyn</a>
+    <div>
+      <a href="#" class="tb-item">AZ</a>
     </div>
-
-    <div class="person">
-      <div class="portrait">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=500&q=85"
-             alt="Müəllim">
-      </div>
-      <a class="person-button" href="#teacher">Müəllim</a>
-    </div>
-
-    <div class="person">
-      <div class="portrait">
-        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=85"
-             alt="Direktor">
-      </div>
-      <a class="person-button" href="#director">Direktor</a>
-    </div>
-
   </div>
 </div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <a href="#" class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Rəqəmsal Məktəb</div>
+        <div class="brand-sub">Demo platforması</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="#home" class="active">Ana səhifə</a>
+      <a href="#services">Xidmətlər</a>
+      <a href="#features">İmkanlar</a>
+      <a href="#news">Xəbərlər</a>
+      <a href="#survey">Sorğu</a>
+      <a href="#contact">Əlaqə</a>
+    </nav>
+    <div class="header-cta">
+      <a href="#logins" class="btn btn-primary btn-sm">Daxil ol</a>
+      <button class="burger" id="burger" aria-label="Menyu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu">
+    <a href="#home">Ana səhifə</a>
+    <a href="#services">Xidmətlər</a>
+    <a href="#features">İmkanlar</a>
+    <a href="#news">Xəbərlər</a>
+    <a href="#survey">Sorğu</a>
+    <a href="#contact">Əlaqə</a>
+    <a href="#logins">Daxil ol</a>
+  </div>
 </header>
 
-<main class="content">
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-text">
+      <div class="hero-badge">✨ Rəqəmsal təhsil üçün vahid məkan</div>
+      <h1>Rəqəmsal mühitdə <em>öyrənmə</em>, tədris, ünsiyyət və əməkdaşlıq</h1>
+      <p class="lead">Məktəbdə keçirilən dərsləri onlayn mükəmməlləşdir. Hazırlanmış tapşırıqları və testləri yerinə yetirərək keçilmiş mövzuları möhkəmləndir — hər bir şagird üçün bərabər imkanlar.</p>
+      <div class="hero-actions">
+        <a href="#logins" class="btn btn-primary">Platformaya daxil ol →</a>
+        <a href="#features" class="btn btn-ghost">Necə işləyir?</a>
+      </div>
+      <ul class="hero-points">
+        <li><span class="check">✓</span> 1–11-ci siniflər</li>
+        <li><span class="check">✓</span> Pulsuz xidmətlər</li>
+        <li><span class="check">✓</span> 4 istifadəçi tipi</li>
+      </ul>
+    </div>
 
-<section class="role-section" id="student">
-  <div class="section-head">
-    <h2>Şagirdlər üçün giriş</h2>
-    <button class="continue">Davam et ➜</button>
-  </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-photo">
+          <!-- Inclusive illustration: friendly boy with Down syndrome -->
+          <svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#dbeafe"/>
+                <stop offset="100%" stop-color="#93c5fd"/>
+              </linearGradient>
+              <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fde3c7"/>
+                <stop offset="100%" stop-color="#f5c9a1"/>
+              </linearGradient>
+            </defs>
+            <rect width="600" height="450" fill="url(#bg)"/>
+            <!-- decorative -->
+            <circle cx="90" cy="80" r="40" fill="#fef3c7" opacity=".7"/>
+            <circle cx="520" cy="380" r="60" fill="#dcfce7" opacity=".6"/>
+            <circle cx="540" cy="90" r="30" fill="#fce7f3" opacity=".6"/>
+            <!-- Body / school uniform -->
+            <path d="M180 450 L180 320 Q180 260 250 240 L350 240 Q420 260 420 320 L420 450 Z" fill="#0e63e6"/>
+            <path d="M250 240 L300 285 L350 240 L335 233 L300 265 L265 233 Z" fill="#fff"/>
+            <path d="M292 265 L308 265 L314 330 L300 345 L286 330 Z" fill="#ffb703"/>
+            <!-- Neck -->
+            <rect x="278" y="200" width="44" height="45" fill="url(#skin)"/>
+            <!-- Head (rounder) -->
+            <ellipse cx="300" cy="140" rx="90" ry="100" fill="url(#skin)"/>
+            <!-- Hair -->
+            <path d="M215 120 Q215 55 300 45 Q385 55 385 120 Q380 90 360 80 Q330 70 300 72 Q270 70 240 80 Q220 90 215 120 Z" fill="#4a3728"/>
+            <!-- Ears -->
+            <ellipse cx="213" cy="145" rx="10" ry="16" fill="url(#skin)"/>
+            <ellipse cx="387" cy="145" rx="10" ry="16" fill="url(#skin)"/>
+            <!-- Almond eyes -->
+            <ellipse cx="265" cy="140" rx="10" ry="6" fill="#fff"/>
+            <ellipse cx="335" cy="140" rx="10" ry="6" fill="#fff"/>
+            <circle cx="267" cy="140" r="4.5" fill="#3b2817"/>
+            <circle cx="337" cy="140" r="4.5" fill="#3b2817"/>
+            <circle cx="268" cy="139" r="1.5" fill="#fff"/>
+            <circle cx="338" cy="139" r="1.5" fill="#fff"/>
+            <!-- Eyebrows -->
+            <path d="M252 125 Q265 122 278 125" stroke="#4a3728" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M322 125 Q335 122 348 125" stroke="#4a3728" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <!-- Nose -->
+            <path d="M300 150 Q295 168 297 180 Q300 183 303 180 Q305 168 300 150" fill="none" stroke="#d4a57a" stroke-width="2"/>
+            <!-- Cheeks (rounder) -->
+            <circle cx="248" cy="172" r="14" fill="#f4b5a0" opacity=".55"/>
+            <circle cx="352" cy="172" r="14" fill="#f4b5a0" opacity=".55"/>
+            <!-- Smile -->
+            <path d="M272 190 Q300 215 328 190" stroke="#8b4a3c" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M275 193 Q300 210 325 193 Q300 202 275 193" fill="#e8a598"/>
+            <!-- Book -->
+            <rect x="430" y="320" width="90" height="100" rx="5" fill="#ffb703"/>
+            <rect x="436" y="326" width="78" height="88" fill="#fef3c7"/>
+            <line x1="445" y1="345" x2="505" y2="345" stroke="#ffb703" stroke-width="2"/>
+            <line x1="445" y1="360" x2="498" y2="360" stroke="#ffb703" stroke-width="2"/>
+            <line x1="445" y1="375" x2="502" y2="375" stroke="#ffb703" stroke-width="2"/>
+            <ellipse cx="438" cy="345" rx="18" ry="14" fill="url(#skin)"/>
+          </svg>
+        </div>
+        <div class="hero-caption">
+          <strong>Əli, 7-ci sinif şagirdi</strong>
+          <span>Dərs rejimi aktivdir</span>
+        </div>
+      </div>
 
-  <div class="cards">
-    <article class="info-card card-purple">
-      <h3>Məktəbdə keçirilən dərsləri onlayn möhkəmləşdir.</h3>
-      <p>Hazırlanmış tapşırıqları və test tapşırıqlarını yerinə yetirərək keçilmiş mövzuları möhkəmləndirə bilərsən.</p>
-    </article>
-
-    <article class="info-card card-green">
-      <h3>Müəllimlərdən soruş.</h3>
-      <p>Mövzu ilə bağlı müəllimlərə sual verə bilərsən.</p>
-    </article>
-
-    <article class="info-card card-photo">
-      <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=85" alt="Şagird">
-    </article>
+      <div class="floating float-1">
+        <div class="float-ico f-blue">📖</div>
+        <div class="float-text"><strong>Video dərslər</strong><span>1200+ mövzu</span></div>
+      </div>
+      <div class="floating float-2">
+        <div class="float-ico f-green">✓</div>
+        <div class="float-text"><strong>Test tamamlandı</strong><span>Riyaziyyat · 94%</span></div>
+      </div>
+      <div class="floating float-3">
+        <div class="float-ico f-amber">★</div>
+        <div class="float-text"><strong>4.9 reytinq</strong><span>Valideynlər</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="role-section" id="parent">
-  <div class="section-head">
-    <h2>Valideynlər üçün giriş</h2>
-    <button class="continue">Davam et ➜</button>
-  </div>
-
-  <div class="cards">
-    <article class="info-card card-purple">
-      <h3>Övladının təhsilini yaxından izlə.</h3>
-      <p>Dərs cədvəli, davamiyyət və tədris prosesi haqqında məlumatları bir məkanda izləyə bilərsən.</p>
-    </article>
-
-    <article class="info-card card-green">
-      <h3>Məktəblə əlaqə saxla.</h3>
-      <p>Müəllimlər və məktəb ilə ünsiyyət imkanlarından istifadə et.</p>
-    </article>
-
-    <article class="info-card card-photo">
-      <img src="https://images.unsplash.com/photo-1491013516836-7db643ee125a?auto=format&fit=crop&w=700&q=85" alt="Valideyn və uşaq">
-    </article>
-  </div>
-</section>
-
-<section class="role-section" id="teacher">
-  <div class="section-head">
-    <h2>Müəllimlər üçün giriş</h2>
-    <button class="continue">Davam et ➜</button>
-  </div>
-
-  <div class="cards">
-    <article class="info-card card-purple">
-      <h3>Tədris prosesini idarə et.</h3>
-      <p>Dərs materiallarını paylaş, tapşırıqlar hazırla və şagirdlərin öyrənmə prosesini dəstəklə.</p>
-    </article>
-
-    <article class="info-card card-green">
-      <h3>Şagirdlərlə ünsiyyətdə ol.</h3>
-      <p>Sualları cavablandır və tədris resurslarını paylaş.</p>
-    </article>
-
-    <article class="info-card card-photo">
-      <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=700&q=85" alt="Müəllim">
-    </article>
+<!-- LOQİNLƏR -->
+<section class="logins" id="logins">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Fərdi kabinetlər</div>
+      <h2>Platformaya daxil olun</h2>
+      <p>Hər bir istifadəçi qrupu üçün xüsusi fərdi kabinet mövcuddur</p>
+    </div>
+    <div class="logins-grid">
+      <div class="login-card student">
+        <div class="login-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <h3>Şagird</h3>
+        <p>Dərslər, tapşırıqlar, video və testlər</p>
+        <a href="#" class="btn btn-primary btn-sm">Şagird girişi</a>
+      </div>
+      <div class="login-card parent">
+        <div class="login-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><circle cx="17" cy="7" r="3"/><path d="M21 21v-2a3 3 0 00-2-2.8"/></svg></div>
+        <h3>Valideyn</h3>
+        <p>Övladınızın fəaliyyətini və nəticələrini izləyin</p>
+        <a href="#" class="btn btn-primary btn-sm">Valideyn girişi</a>
+      </div>
+      <div class="login-card teacher">
+        <div class="login-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <h3>Müəllim</h3>
+        <p>Dərs vermək, tapşırıq yaratmaq və qiymətləndirmək</p>
+        <a href="#" class="btn btn-primary btn-sm">Müəllim girişi</a>
+      </div>
+      <div class="login-card school">
+        <div class="login-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg></div>
+        <h3>Məktəb rəhbəri</h3>
+        <p>Məktəb idarəetməsi və hesabatlar</p>
+        <a href="#" class="btn btn-primary btn-sm">Rəhbər girişi</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="role-section" id="director">
-  <div class="section-head">
-    <h2>Direktorlar üçün giriş</h2>
-    <button class="continue">Davam et ➜</button>
-  </div>
-
-  <div class="cards">
-    <article class="info-card card-purple">
-      <h3>Məktəbin fəaliyyətini izlə.</h3>
-      <p>Tədris prosesinə və məktəbin əsas göstəricilərinə dair məlumatları nəzərdən keçir.</p>
-    </article>
-
-    <article class="info-card card-green">
-      <h3>İdarəetməni asanlaşdır.</h3>
-      <p>Məktəbdaxili məlumat və hesabatları vahid platformada topla.</p>
-    </article>
-
-    <article class="info-card card-photo">
-      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=85" alt="Məktəb rəhbərliyi">
-    </article>
+<!-- XİDMƏTLƏR -->
+<section class="section features" id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Əsas xidmətlər</div>
+      <h2>Platformanın əsas imkanları</h2>
+      <p>Bütün xidmətlər pulsuz və bütün cihazlarda əlçatandır</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-ico fi-1">📓</div>
+        <h3>Elektron jurnal</h3>
+        <p>Dərs davamiyyəti, qiymətlər və fəaliyyət qeydləri real vaxtda yenilənir.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-2">🎥</div>
+        <h3>Video dərslər</h3>
+        <p>Keçilmiş mövzuları yenidən izləyin və ya buraxılmış dərsləri bərpa edin.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-3">📝</div>
+        <h3>Test və tapşırıqlar</h3>
+        <p>Hazırlanmış tapşırıqları yerinə yetirərək bilikləri möhkəmləndirin.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-4">👪</div>
+        <h3>Valideyn kabineti</h3>
+        <p>Övladınızın dərslər, tapşırıqlar və qiymətlər barədə anlıq məlumat alın.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-5">📊</div>
+        <h3>Elektron hesabatlar</h3>
+        <p>Müəllim və rəhbər üçün avtomatik hesabat və statistikalar.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-6">💬</div>
+        <h3>Ünsiyyət kanalları</h3>
+        <p>Müəllim, valideyn və şagird arasında birbaşa və təhlükəsiz rabitə.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-</main>
+<!-- İMKANLAR -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Niyə biz?</div>
+      <h2>Platformanın üstünlükləri</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-ico fi-1">🔒</div>
+        <h3>Təhlükəsiz giriş</h3>
+        <p>Fərdi identifikasiya ilə qorunan giriş sistemi.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-2">📱</div>
+        <h3>İstənilən cihaz</h3>
+        <p>Kompüter, planşet və smartfondan istifadə imkanı.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-3">🆓</div>
+        <h3>Tamamilə pulsuz</h3>
+        <p>Bütün xidmətlər ödənişsiz təqdim olunur.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer class="footer">
-  Rəqəmsal Məktəb
+<!-- STAT -->
+<section class="section stat">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Rəqəmlər</div>
+      <h2>Platformanın göstəriciləri</h2>
+      <p>Azərbaycanın müxtəlif bölgələrindən istifadəçilər</p>
+    </div>
+    <div class="stat-grid">
+      <div><div class="stat-n" data-target="15000">0</div><div class="stat-l">Aktiv şagird</div></div>
+      <div><div class="stat-n" data-target="1200">0</div><div class="stat-l">Məktəb</div></div>
+      <div><div class="stat-n" data-target="8500">0</div><div class="stat-l">Müəllim</div></div>
+      <div><div class="stat-n" data-target="25000">0</div><div class="stat-l">Valideyn</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- XƏBƏRLƏR -->
+<section class="section" id="news">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Yeniliklər</div>
+      <h2>Son xəbərlər və yeniliklər</h2>
+    </div>
+    <div class="news-grid">
+      <article class="news-card">
+        <div class="news-img">🎓</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Yenilik</span><span>01 Noy 2026</span></div>
+          <h3>Platformaya yeni fənlər əlavə edildi</h3>
+          <p>İncəsənət və texnologiya fənləri üzrə yeni kurslar istifadəyə verildi.</p>
+          <a href="#" class="news-more">Ətraflı oxu →</a>
+        </div>
+      </article>
+      <article class="news-card">
+        <div class="news-img alt">🏆</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Nailiyyət</span><span>25 Okt 2026</span></div>
+          <h3>Şagirdlər respublika olimpiadasında qalib</h3>
+          <p>Platforma istifadəçiləri riyaziyyat olimpiadasında 12 medal qazandı.</p>
+          <a href="#" class="news-more">Ətraflı oxu →</a>
+        </div>
+      </article>
+      <article class="news-card">
+        <div class="news-img alt2">📢</div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Sorğu</span><span>18 Okt 2026</span></div>
+          <h3>Valideyn məmnuniyyət sorğusu açıqdır</h3>
+          <p>"Məktəb sorğusu" bölməsi vasitəsilə fikirinizi bölüşə bilərsiniz.</p>
+          <a href="#" class="news-more">Ətraflı oxu →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SORĞU -->
+<section class="section survey" id="survey">
+  <div class="container">
+    <h2>Valideyn məmnuniyyət sorğusu</h2>
+    <p>"Məktəb sorğusu" bölməsi vasitəsilə övladınızın təhsil təcrübəsi barədə fikirlərinizi bölüşün və platformanın inkişafına kömək edin.</p>
+    <a href="#" class="btn btn-accent">Sorguya keç →</a>
+  </div>
+</section>
+
+<!-- ƏLAQƏ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Əlaqə</div>
+      <h2>Suallarınız var?</h2>
+      <p>Komandamız kömək etməyə hazırdır</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-ico fi-1">📍</div>
+        <h3>Ünvan</h3>
+        <p>Bakı şəhəri (demo layihə)</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-2">📞</div>
+        <h3>Telefon</h3>
+        <p>+994 12 146 (demo)</p>
+      </div>
+      <div class="feat">
+        <div class="feat-ico fi-3">📧</div>
+        <h3>E-poçt</h3>
+        <p>info@demo.az</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">
+          <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#3b2a00" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <strong>Rəqəmsal Məktəb</strong>
+        </div>
+        <p>Demo məqsədli orijinal dizayn. Rəsmi platforma ilə əlaqəsi yoxdur.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="YouTube">yt</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Bölmələr</h4>
+        <ul>
+          <li><a href="#home">Ana səhifə</a></li>
+          <li><a href="#services">Xidmətlər</a></li>
+          <li><a href="#features">İmkanlar</a></li>
+          <li><a href="#news">Xəbərlər</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Kabinetlər</h4>
+        <ul>
+          <li><a href="#logins">Şagird</a></li>
+          <li><a href="#logins">Valideyn</a></li>
+          <li><a href="#logins">Müəllim</a></li>
+          <li><a href="#logins">Məktəb rəhbəri</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Dəstək</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Gizlilik</a></li>
+          <li><a href="#">İstifadə şərtləri</a></li>
+          <li><a href="#contact">Əlaqə</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Rəqəmsal Məktəb · Demo layihə</div>
+  </div>
 </footer>
+
+<script>
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  burger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+  document.querySelectorAll('.mobile-menu a').forEach(a =>
+    a.addEventListener('click', () => document.body.classList.remove('menu-open'))
+  );
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const t = document.querySelector(id);
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }
+    });
+  });
+
+  // Active nav on scroll
+  const links = document.querySelectorAll('.nav a');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 120;
+    let cur = 'home';
+    sections.forEach(s => { if (y >= s.offsetTop) cur = s.id; });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+    });
+  });
+
+  // Stat counter
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = +el.dataset.target;
+      let cur = 0;
+      const step = Math.max(1, Math.ceil(target / 60));
+      const t = setInterval(() => {
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(t); }
+        el.textContent = cur.toLocaleString('az-AZ') + '+';
+      }, 22);
+      io.unobserve(el);
+    });
+  }, { threshold: .4 });
+  document.querySelectorAll('[data-target]').forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>
